@@ -15,7 +15,7 @@ if(WIN32)
       ${LLVM_INCLUDE_DIR}/../../clang/include)
     set(SELECTED_LIBRARY_DIRS
       ${LLVM_LIBRARY_DIR}/..
-      ${LLVM_LIBRARY_DIR}/../../lib/debug)
+      ${LLVM_LIBRARY_DIR}/../../lib/Release)
     set(SELECTED_SYSTEM_LIBS
         Version.lib)
 

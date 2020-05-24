@@ -7,11 +7,12 @@ This is an example helping you build your cross-platform clangtool utility with 
 
 Please build `llvm-project` from source code at first, then set the following vairables depending on where is your location of llvm-project.
 1. `$LLVMDirPathWin` and/or
-2. `$LLVMDirPathLinux` 
+2. `$LLVMDirPathLinux`
 
 
 - If you have no idea about how to build LLVM-Project, have a read the document([how-to-build-llvm.md](https://github.com/dougpuob/cpp-namelint/blob/master/doc/how-to-build-llvm.md)).
 
+- Or you can download prebuilt packages here ([GoogleDrive](https://reurl.cc/arXKaQ))
 
 - The following script is an PowerShell script, you can do the following command on your console directly too. [How to install powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7)
 

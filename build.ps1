@@ -7,24 +7,30 @@ if (Test-Path('build')) {
 New-Item -Type Directory build
 
 # You have to change the variable if your LLVM-Project was located at different place.
-$LLVMDirPathWin   ='C:\my-work\opensrc\llvm\llvm-project\llvm-project.git--10.0.0\build'
-$LLVMDirPathLinux ='/home/gliadmin/llvm-project--8.0.0.git/build/release'
+$BuildType          = 'Release'
+$LLVM8DirPathWin    = 'D:\petzone\llvm\llvm-project.git--8.0.0-release-shrinked\build'
+$LLVM10DirPathWin   = 'D:\petzone\llvm\llvm-project.git--10.0.0-release-shrinked\build'
+$LLVM8DirPathLinux  = '/home/dougpuob/petzone/llvm-project--8.0.0.git--release-shrinked/build/release'
+$LLVM10DirPathLinux = '/home/dougpuob/petzone/llvm-project--10.0.0.git--release-shrinked/build/release'
+
 
 # create configuration then build it by CMake.
 Push-Location build
 if ($IsWindows) {
-    $env:LLVM_DIR=$LLVMDirPathWin
+    $SelectedLLVMDir=$LLVM10DirPathWin
+    $env:LLVM_DIR=$SelectedLLVMDir
     echo $env:LLVM_DIR
 
     cmake .. -G "Visual Studio 16 2019"
-    cmake --build . --config Debug      # Debug | Release
+    cmake --build . --config $BuildType
 }
 elseif ($IsLinux) {
-    $env:LLVM_DIR=$LLVMDirPathLinux
+    $SelectedLLVMDir=$LLVM10DirPathLinux
+    $env:LLVM_DIR=$SelectedLLVMDir
     echo $env:LLVM_DIR
 
     cmake .. -G "Unix Makefiles"
-    cmake --build . --config Release    # Debug | Release
+    cmake --build . --config $BuildType
 }
 elseif ($IsMacOS) {
 }
