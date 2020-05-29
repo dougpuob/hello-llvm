@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(MyClangTool)
 
-set(LLVM_PACKAGE_VERSION 10.0.0)
+set(LLVM_PACKAGE_VERSION $ENV{LLVM_VERSION})
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-inc-dirs.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-lib-dirs.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-libs-${LLVM_PACKAGE_VERSION}.cmake)

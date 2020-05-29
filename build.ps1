@@ -9,6 +9,7 @@ New-Item -Type Directory build
 
 
 # You have to change the variable if your LLVM-Project was located at different place.
+$env:LLVM_VERSION     = '10.0.0'
 $env:LLVM_BUILD_TYPE  = 'Release'
 $env:LLVM_ROOT_DIR    = 'C:\petzone\llvm\llvm-project.git--10.0.0--release'
 
