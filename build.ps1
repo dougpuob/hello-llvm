@@ -1,32 +1,32 @@
 clear
 
-
+# ==---------------------------------------------------------------------------
 # Create build folder
+# ==---------------------------------------------------------------------------
 if (Test-Path('build')) {
     Remove-Item build -Force
 }
 New-Item -Type Directory build
 
 
-# You have to change the variable if your LLVM-Project was located at different place.
-$env:LLVM_VERSION     = '10.0.0'
-$env:LLVM_BUILD_TYPE  = 'Release'
-$env:LLVM_ROOT_DIR    = 'C:\petzone\llvm\llvm-project.git--10.0.0--release'
-
-
-#$env:Clang_DIR      = 'C:\petzone\llvm\llvm-project.git--10.0.0\build'
-#$env:Clang_DIR       = 'C:\petzone\llvm\llvm-project.git--10.0.0-release\build'
-#$LLVM8DirPathLinux  = '/home/dougpuob/petzone/llvm-project--8.0.0.git--release-shrinked/build/release'
-#$LLVM10DirPathLinux = '/home/dougpuob/petzone/llvm-project--10.0.0.git--release-shrinked/build/release'
-
-
-# create configuration then build it by CMake.
+# ==---------------------------------------------------------------------------
+# Enter to build folder then build this project.
+#
+# $env:LLVM_VERSION     = LLVM version
+# $env:LLVM_BUILD_TYPE  = LLVM build folder in root folder
+# $env:LLVM_ROOT_DIR    = LLVM source code root folder
+# ==---------------------------------------------------------------------------
 Push-Location build
+
+$env:LLVM_VERSION    = '10.0.0'
+$env:LLVM_BUILD_TYPE = 'Release'
 if ($IsWindows) {
+    $env:LLVM_ROOT_DIR = 'C:\petzone\llvm\llvm-project.git--10.0.0-release-shrinked'
     cmake .. -G "Visual Studio 16 2019"
     cmake --build . --config $env:LLVM_BUILD_TYPE
 }
 elseif ($IsLinux) {
+    $env:LLVM_ROOT_DIR = '/home/dougpuob/petzone/llvm-project--10.0.0.git--release-shrinked'
     cmake .. -G "Unix Makefiles"
     cmake --build . --config $env:LLVM_BUILD_TYPE
 }
