@@ -1,4 +1,5 @@
-set(LLVM_LIBS_10_0_0
+set(LLVM_LIBS
+    clangAnalysis
     clangARCMigrate
     clangAST
     clangASTMatchers
@@ -33,6 +34,10 @@ set(LLVM_LIBS_10_0_0
     clangToolingSyntax
     clangTransformer
     DynamicLibraryLib
+    gtest
+    gtest_main
+    libclang
+    LLVM-C
     LLVMAArch64AsmParser
     LLVMAArch64CodeGen
     LLVMAArch64Desc
@@ -65,7 +70,6 @@ set(LLVM_LIBS_10_0_0
     LLVMBPFDisassembler
     LLVMBPFInfo
     LLVMCFGuard
-    LLVMCFIVerify
     LLVMCodeGen
     LLVMCore
     LLVMCoroutines
@@ -79,11 +83,6 @@ set(LLVM_LIBS_10_0_0
     LLVMDlltoolDriver
     LLVMDWARFLinker
     LLVMExecutionEngine
-    LLVMExegesis
-    LLVMExegesisAArch64
-    LLVMExegesisMips
-    LLVMExegesisPowerPC
-    LLVMExegesisX86
     LLVMFrontendOpenMP
     LLVMFuzzMutate
     LLVMGlobalISel
@@ -185,4 +184,16 @@ set(LLVM_LIBS_10_0_0
     LLVMXCoreDisassembler
     LLVMXCoreInfo
     LLVMXRay
+    LTO
+    Remarks
+    #
+    #$ENV{LLVM_SOURCE/DIR}/build/lib/Release
+    #
+    LLVMCFIVerify
+    LLVMExegesis
+    LLVMExegesisAArch64
+    LLVMExegesisMips
+    LLVMExegesisPowerPC
+    LLVMExegesisX86
 )
+

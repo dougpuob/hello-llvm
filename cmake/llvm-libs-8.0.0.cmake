@@ -1,4 +1,4 @@
-set(LLVM_LIBS_8_0_0
+set(LLVM_LIBS
     clangAnalysis
     clangApplyReplacements
     clangARCMigrate
