@@ -20,18 +20,39 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 #===----------------------------------------------------------------------===#
-set(LLVM_LIBS
+
+set(LLVM_LIBS 
+    LLVMBinaryFormat
+    LLVMBitReader
+    LLVMCore
+    LLVMDemangle
+    LLVMMC
+    LLVMProfileData
+    LLVMOption
+    LLVMMCParser
+    LLVMSupport
+    LLVMCore
+    clangTooling
     clangAnalysis
-    clangApplyReplacements
+    clangSerialization
+    clangParse
+    clangDriver
+    clangSema
+    clangEdit
+    clangFrontend
+    clangAST
+    clangLex
+    clangBasic
+    #------------------------#
+    # Build for Linux        #
+    #------------------------#
+    clangAnalysis
     clangARCMigrate
     clangAST
     clangASTMatchers
     clangBasic
-    clangChangeNamespace
     clangCodeGen
     clangCrossTU
-    clangDaemon
-    clangDoc
     clangDriver
     clangDynamicASTMatchers
     clangEdit
@@ -40,14 +61,9 @@ set(LLVM_LIBS
     clangFrontendTool
     clangHandleCXX
     clangHandleLLVM
-    clangIncludeFixer
-    clangIncludeFixerPlugin
     clangIndex
     clangLex
-    clangMove
     clangParse
-    clangQuery
-    clangReorderFields
     clangRewrite
     clangRewriteFrontend
     clangSema
@@ -55,34 +71,12 @@ set(LLVM_LIBS
     clangStaticAnalyzerCheckers
     clangStaticAnalyzerCore
     clangStaticAnalyzerFrontend
-    clangTidy
-    clangTidyAbseilModule
-    clangTidyAndroidModule
-    clangTidyBoostModule
-    clangTidyBugproneModule
-    clangTidyCERTModule
-    clangTidyCppCoreGuidelinesModule
-    clangTidyFuchsiaModule
-    clangTidyGoogleModule
-    clangTidyHICPPModule
-    clangTidyLLVMModule
-    clangTidyMiscModule
-    clangTidyModernizeModule
-    clangTidyMPIModule
-    clangTidyObjCModule
-    clangTidyPerformanceModule
-    clangTidyPlugin
-    clangTidyPortabilityModule
-    clangTidyReadabilityModule
-    clangTidyUtils
-    clangTidyZirconModule
     clangTooling
     clangToolingASTDiff
     clangToolingCore
     clangToolingInclusions
     clangToolingRefactor
-    DynamicLibraryLib
-    findAllSymbols
+    #libclang
     LLVMAArch64AsmParser
     LLVMAArch64AsmPrinter
     LLVMAArch64CodeGen
@@ -117,7 +111,6 @@ set(LLVM_LIBS
     LLVMBPFDesc
     LLVMBPFDisassembler
     LLVMBPFInfo
-    LLVMCFIVerify
     LLVMCodeGen
     LLVMCore
     LLVMCoroutines
@@ -129,10 +122,6 @@ set(LLVM_LIBS
     LLVMDemangle
     LLVMDlltoolDriver
     LLVMExecutionEngine
-    LLVMExegesis
-    LLVMExegesisAArch64
-    LLVMExegesisPowerPC
-    LLVMExegesisX86
     LLVMFuzzMutate
     LLVMGlobalISel
     LLVMHexagonAsmParser
@@ -156,7 +145,6 @@ set(LLVM_LIBS
     LLVMLinker
     LLVMLTO
     LLVMMC
-    LLVMMCA
     LLVMMCDisassembler
     LLVMMCJIT
     LLVMMCParser
@@ -167,11 +155,9 @@ set(LLVM_LIBS
     LLVMMipsDisassembler
     LLVMMipsInfo
     LLVMMIRParser
-    LLVMMSP430AsmParser
     LLVMMSP430AsmPrinter
     LLVMMSP430CodeGen
     LLVMMSP430Desc
-    LLVMMSP430Disassembler
     LLVMMSP430Info
     LLVMNVPTXAsmPrinter
     LLVMNVPTXCodeGen
@@ -181,7 +167,6 @@ set(LLVM_LIBS
     LLVMObject
     LLVMObjectYAML
     LLVMOption
-    LLVMOptRemarks
     LLVMOrcJIT
     LLVMPasses
     LLVMPowerPCAsmParser
@@ -211,15 +196,8 @@ set(LLVM_LIBS
     LLVMTableGen
     LLVMTarget
     LLVMTestingSupport
-    LLVMTextAPI
     LLVMTransformUtils
     LLVMVectorize
-    LLVMWebAssemblyAsmParser
-    LLVMWebAssemblyAsmPrinter
-    LLVMWebAssemblyCodeGen
-    LLVMWebAssemblyDesc
-    LLVMWebAssemblyDisassembler
-    LLVMWebAssemblyInfo
     LLVMWindowsManifest
     LLVMX86AsmParser
     LLVMX86AsmPrinter
@@ -234,4 +212,18 @@ set(LLVM_LIBS
     LLVMXCoreDisassembler
     LLVMXCoreInfo
     LLVMXRay
-)
+    LTO
+    clangParse
+    clangSerialization
+    clangDriver
+    clangIndex
+    clangSema
+    clangAnalysis
+    clangAST
+    clangFrontend
+    clangEdit
+    clangLex
+    clangBasic
+    LLVMSupport
+    LLVMCore
+    LLVMMC)

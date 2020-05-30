@@ -41,15 +41,18 @@ New-Item -Type Directory build
 #---------------------------------------------------------------------------
 Push-Location build
 
-$env:LLVM_VERSION    = '10.0.0'
-$env:LLVM_BUILD_TYPE = 'Release'
+$env:LLVM_VERSION    = '8.0.0'
 if ($IsWindows) {
-    $env:LLVM_ROOT_DIR = 'C:\petzone\llvm\llvm-project.git--10.0.0-release-shrinked'
+    $env:LLVM_BUILD_TYPE = 'Release'
+    $env:LLVM_ROOT_DIR   = 'C:\petzone\llvm\llvm-project.git--10.0.0-release-shrinked'
+    
     cmake .. -G "Visual Studio 16 2019"
     cmake --build . --config $env:LLVM_BUILD_TYPE
 }
 elseif ($IsLinux) {
-    $env:LLVM_ROOT_DIR = '/home/dougpuob/petzone/llvm-project--10.0.0.git--release-shrinked'
+    $env:LLVM_BUILD_TYPE = 'release'
+    $env:LLVM_ROOT_DIR   = '/home/gliadmin/llvm-project--8.0.0.git'
+    
     cmake .. -G "Unix Makefiles"
     cmake --build . --config $env:LLVM_BUILD_TYPE
 }

@@ -24,10 +24,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(MyClangTool)
 
-set(LLVM_PACKAGE_VERSION $ENV{LLVM_VERSION})
+set(CMAKE_VERBOSE_MAKEFILE on )
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-inc-dirs.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-lib-dirs.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-libs-${LLVM_PACKAGE_VERSION}.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-libs-$ENV{LLVM_VERSION}.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/check-variables.cmake)
 
 message(STATUS "=============================================================")
@@ -42,10 +42,12 @@ message(STATUS "LLVM_LIBS       = ${LLVM_LIBS}")
 message(STATUS "=============================================================")
 message("")
 
+    
 if(WIN32)
     set(SYSTEM_LIBS Version.lib)
 elseif(UNIX AND NOT APPLE)
-    set(SYSTEM_LIBS)
+    set(SYSTEM_LIBS z tinfo pthread)
+    set(CMAKE_CXX_FLAGS "-frtti")
 elseif(APPLE)
     set(SYSTEM_LIBS)
 endif()
