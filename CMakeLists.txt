@@ -39,6 +39,8 @@ message(STATUS "-------------------------------------------------------------")
 message(STATUS "LLVM_LIB_DIRS   = ${LLVM_LIB_DIRS}")
 message(STATUS "-------------------------------------------------------------")
 message(STATUS "LLVM_LIBS       = ${LLVM_LIBS}")
+message(STATUS "-------------------------------------------------------------")
+message(STATUS "CLANG_LIBS      = ${CLANG_LIBS}")
 message(STATUS "=============================================================")
 message("")
 
@@ -57,12 +59,13 @@ include_directories(${LLVM_INC_DIRS})
 link_directories(${LLVM_LIB_DIRS})
 
 add_executable(MyClangTool
-  main.cpp
+  source/main.cpp
   )
 
 target_link_libraries(MyClangTool
   clangTooling
   clangAnalysis
   ${LLVM_LIBS}
+  ${CLANG_LIBS}
   ${SYSTEM_LIBS}
   )
