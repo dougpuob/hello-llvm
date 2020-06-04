@@ -51,7 +51,7 @@ if ($IsWindows) {
 }
 elseif ($IsLinux) {
     $env:LLVM_BUILD_TYPE = 'release'
-    $env:LLVM_ROOT_DIR   = '/home/gliadmin/llvm-project--8.0.0.git'
+    $env:LLVM_ROOT_DIR   = '/mnt/c/petzone/llvm/llvm-project-ubuntu1804-llvmorg-10.0.0-release'
     
     cmake .. -G "Unix Makefiles"
     cmake --build . --config $env:LLVM_BUILD_TYPE

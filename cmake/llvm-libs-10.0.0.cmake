@@ -94,7 +94,6 @@ set(LLVM_LIBS
     LLVMCFGuard
     LLVMCFIVerify
     LLVMCodeGen
-    LLVMCore
     LLVMCoroutines
     LLVMCoverage
     LLVMDebugInfoCodeView
@@ -212,4 +211,5 @@ set(LLVM_LIBS
     LLVMXCoreDisassembler
     LLVMXCoreInfo
     LLVMXRay
+    LLVMCore
 )
