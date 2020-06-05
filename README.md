@@ -1,6 +1,7 @@
 # example-llvm-clangtool
 This is an example helping you build your cross-platform clangtool utility with CMake quickly on Windows/Linux/macOS(x).
 
+![Diagram](https://i.ibb.co/YfZ4yFr/2020-06-06-002649.png)
 ——————————————————————————————————————————————————
 
 ## Start
@@ -17,40 +18,46 @@ Please build `llvm-project` from source code at first, then set the following va
 - The following script is an PowerShell script, you can do the following command on your console directly too. [How to install powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7)
 
 
-```powershell
+``` powershell
 clear
 
+#-----------------------------------------------------------------------------
 # Create build folder
+#-----------------------------------------------------------------------------
 if (Test-Path('build')) {
     Remove-Item build -Force
 }
 New-Item -Type Directory build
 
-# You have to change the variable if your LLVM-Project was located at different place.
-$LLVMDirPathWin   ='C:\my-work\opensrc\llvm\llvm-project\llvm-project.git--10.0.0\build'
-$LLVMDirPathLinux ='/home/gliadmin/llvm-project--8.0.0.git/build/release'
 
-# create configuration then build it by CMake.
+#-----------------------------------------------------------------------------
+# Enter to build folder then build this project.
+#
+# $env:LLVM_VERSION     = LLVM version
+# $env:LLVM_BUILD_TYPE  = LLVM build folder in root folder
+# $env:LLVM_ROOT_DIR    = LLVM source code root folder
+#---------------------------------------------------------------------------
 Push-Location build
-if ($IsWindows) {
-    $env:LLVM_DIR=$LLVMDirPathWin
-    echo $env:LLVM_DIR
 
+$env:LLVM_VERSION    = '10.0.0'
+if ($IsWindows) {
+    $env:LLVM_BUILD_TYPE = 'Release'
+    $env:LLVM_ROOT_DIR   = 'C:\petzone\llvm\llvm-project-llvmorg-10.0.0-release'
+    
     cmake .. -G "Visual Studio 16 2019"
-    cmake --build . --config Debug      # Debug | Release
+    cmake --build . --config $env:LLVM_BUILD_TYPE
 }
 elseif ($IsLinux) {
-    $env:LLVM_DIR=$LLVMDirPathLinux
-    echo $env:LLVM_DIR
-
+    $env:LLVM_BUILD_TYPE = 'release'
+    $env:LLVM_ROOT_DIR   = '/mnt/c/petzone/llvm/llvm-project-10.0.0-ubuntu18.04-release-shrinking'
+    
     cmake .. -G "Unix Makefiles"
-    cmake --build . --config Release    # Debug | Release
+    cmake --build . --config $env:LLVM_BUILD_TYPE
 }
 elseif ($IsMacOS) {
 }
 
 Pop-Location
-
 ```
 
 ——————————————————————————————————————————————————

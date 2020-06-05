@@ -21,7 +21,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 #===----------------------------------------------------------------------===#clear
-
+clear
 
 #-----------------------------------------------------------------------------
 # Create build folder
@@ -51,7 +51,7 @@ if ($IsWindows) {
 }
 elseif ($IsLinux) {
     $env:LLVM_BUILD_TYPE = 'release'
-    $env:LLVM_ROOT_DIR   = '/mnt/c/petzone/llvm/llvm-project-ubuntu1804-llvmorg-10.0.0-release'
+    $env:LLVM_ROOT_DIR   = '/mnt/c/petzone/llvm/llvm-project-10.0.0-ubuntu18.04-release-shrinking'
     
     cmake .. -G "Unix Makefiles"
     cmake --build . --config $env:LLVM_BUILD_TYPE
