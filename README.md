@@ -1,7 +1,7 @@
 # example-llvm-clangtool
 This is an example helping you build your cross-platform clangtool utility with CMake quickly on Windows/Linux/macOS(x).
 
-![Diagram](https://i.ibb.co/YfZ4yFr/2020-06-06-002649.png)
+![Diagram](https://imgur.com/78f50f34-76cd-4540-b7b3-e8072bfbf532)
 ——————————————————————————————————————————————————
 
 ## Start
