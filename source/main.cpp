@@ -34,7 +34,14 @@ static llvm::cl::OptionCategory MyToolCategory("my-tool options");
 static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
 static cl::extrahelp MoreHelp("\nMore help content ...\n");
 
+  static llvm::Expected<CommonOptionsParser>
+  create(int &argc, const char **argv, llvm::cl::OptionCategory &Category,
+         llvm::cl::NumOccurrencesFlag OccurrencesFlag = llvm::cl::OneOrMore,
+         const char *Overview = nullptr);
+
+
 int main(int argc, const char **argv) {
+  // auto OptionsParser = clang::tooling::CommonOptionsParser::create(argc, argv, MyToolCategory);
   CommonOptionsParser OptionsParser(argc, argv, MyToolCategory);
   ClangTool Tool(OptionsParser.getCompilations(),
                  OptionsParser.getSourcePathList());

@@ -24,48 +24,54 @@
 cmake_minimum_required(VERSION 3.10)
 project(MyClangTool)
 
-set(CMAKE_VERBOSE_MAKEFILE on )
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-inc-dirs.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-lib-dirs.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/llvm-libs-$ENV{LLVM_VERSION}.cmake)
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/check-variables.cmake)
-
-message(STATUS "=============================================================")
-message(STATUS "LLVM_BUILD_TYPE = $ENV{LLVM_BUILD_TYPE}")
-message(STATUS "LLVM_ROOT_DIR   = $ENV{LLVM_ROOT_DIR}")
-message(STATUS "-------------------------------------------------------------")
-message(STATUS "LLVM_INC_DIRS   = ${LLVM_INC_DIRS}")
-message(STATUS "-------------------------------------------------------------")
-message(STATUS "LLVM_LIB_DIRS   = ${LLVM_LIB_DIRS}")
-message(STATUS "-------------------------------------------------------------")
-message(STATUS "LLVM_LIBS       = ${LLVM_LIBS}")
-message(STATUS "-------------------------------------------------------------")
-message(STATUS "CLANG_LIBS      = ${CLANG_LIBS}")
-message(STATUS "=============================================================")
-message("")
-
-    
-if(WIN32)
+if(CMAKE_HOST_WIN32)
     set(SYSTEM_LIBS Version.lib)
-elseif(UNIX AND NOT APPLE)
+elseif(CMAKE_HOST_UNIX)
     set(SYSTEM_LIBS z tinfo pthread)
-    set(CMAKE_CXX_FLAGS "-frtti")
-elseif(APPLE)
+    set(CMAKE_CXX_FLAGS "-fno-rtti")
+elseif(CMAKE_HOST_APPLE)
     set(SYSTEM_LIBS)
 endif()
 
+###############################################################################
+# LLVM
+###############################################################################
+set (SEARCH_PATHHS
+    ${LLVM_INSTALL_DIR}
+    ${LLVM_INSTALL_DIR}/lib/cmake
+    ${LLVM_INSTALL_DIR}/lib/cmake/llvm
+    ${LLVM_INSTALL_DIR}/lib/cmake/clang
+    ${LLVM_INSTALL_DIR}/share/clang/cmake/
+    ${LLVM_INSTALL_DIR}/share/llvm/cmake/
+   )
 
-include_directories(${LLVM_INC_DIRS})
-link_directories(${LLVM_LIB_DIRS})
+find_package(LLVM REQUIRED CONFIG PATHS ${SEARCH_PATHHS} NO_DEFAULT_PATH)
+message(STATUS "Found LLVM  : ${LLVM_INCLUDE_DIRS} ${LLVM_PACKAGE_VERSION}")
 
+find_package(Clang REQUIRED CONFIG PATHS ${SEARCH_PATHHS} NO_DEFAULT_PATH)
+
+add_definitions(${LLVM_DEFINITIONS})
+include_directories(${LLVM_INCLUDE_DIRS})
+llvm_map_components_to_libnames(LLVM_LIBS core clang native)
+
+message(STATUS "LLVM_INSTALL_DIR   = ${LLVM_INSTALL_DIR}")
+message(STATUS "LLVM_INCLUDE_DIRS  = ${LLVM_INCLUDE_DIRS}")
+message(STATUS "LLVM_DEFINITIONS   = ${LLVM_DEFINITIONS}")
+message(STATUS "LLVM_LIBRARY_DIRS  = ${LLVM_LIBRARY_DIRS}")
+message(STATUS "CLANG_INCLUDE_DIRS = ${CLANG_INCLUDE_DIRS}")
+
+set (SELECTED_CLANG_LIBS
+    clangTooling
+    )
+
+
+###############################################################################
 add_executable(MyClangTool
-  source/main.cpp
-  )
+    source/main.cpp
+    )
 
-target_link_libraries(MyClangTool
-  clangTooling
-  clangAnalysis
-  ${LLVM_LIBS}
-  ${CLANG_LIBS}
-  ${SYSTEM_LIBS}
-  )
+target_link_libraries(MyClangTool  
+    ${LLVM_AVAILABLE_LIBS}
+    ${SELECTED_CLANG_LIBS}
+    ${SYSTEM_LIBS}
+    )
