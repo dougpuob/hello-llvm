@@ -36,29 +36,15 @@ endif()
 ###############################################################################
 # LLVM
 ###############################################################################
-set (SEARCH_PATHHS
-    ${LLVM_INSTALL_DIR}
-    ${LLVM_INSTALL_DIR}/lib/cmake
-    ${LLVM_INSTALL_DIR}/lib/cmake/llvm
-    ${LLVM_INSTALL_DIR}/lib/cmake/clang
-    ${LLVM_INSTALL_DIR}/share/clang/cmake/
-    ${LLVM_INSTALL_DIR}/share/llvm/cmake/
-   )
-
-find_package(LLVM REQUIRED CONFIG PATHS ${SEARCH_PATHHS} NO_DEFAULT_PATH)
-message(STATUS "Found LLVM  : ${LLVM_INCLUDE_DIRS} ${LLVM_PACKAGE_VERSION}")
-
-find_package(Clang REQUIRED CONFIG PATHS ${SEARCH_PATHHS} NO_DEFAULT_PATH)
+find_package(Clang CONFIG REQUIRED)
+find_package(LLVM CONFIG REQUIRED)
+    
 
 add_definitions(${LLVM_DEFINITIONS})
 include_directories(${LLVM_INCLUDE_DIRS})
 llvm_map_components_to_libnames(LLVM_LIBS core clang native)
 
-message(STATUS "LLVM_INSTALL_DIR   = ${LLVM_INSTALL_DIR}")
-message(STATUS "LLVM_INCLUDE_DIRS  = ${LLVM_INCLUDE_DIRS}")
-message(STATUS "LLVM_DEFINITIONS   = ${LLVM_DEFINITIONS}")
-message(STATUS "LLVM_LIBRARY_DIRS  = ${LLVM_LIBRARY_DIRS}")
-message(STATUS "CLANG_INCLUDE_DIRS = ${CLANG_INCLUDE_DIRS}")
+
 
 set (SELECTED_CLANG_LIBS
     clangTooling
@@ -75,3 +61,28 @@ target_link_libraries(MyClangTool
     ${SELECTED_CLANG_LIBS}
     ${SYSTEM_LIBS}
     )
+
+message(STATUS "LLVM_INSTALL_PREFIX         = ${LLVM_INSTALL_PREFIX}")
+message(STATUS "LLVM_INSTALL_DIR            = ${LLVM_INSTALL_DIR}")
+message(STATUS "LLVM_INCLUDE_DIRS           = ${LLVM_INCLUDE_DIRS}")
+message(STATUS "LLVM_LIBRARY_DIRS           = ${LLVM_LIBRARY_DIRS}")
+message(STATUS "CLANG_INCLUDE_DIRS          = ${CLANG_INCLUDE_DIRS}")
+message(STATUS "CMAKE_CURRENT_LIST_FILE     = ${CMAKE_CURRENT_LIST_FILE}")
+message(STATUS "LLVM_VERSION_MAJOR          = ${LLVM_VERSION_MAJOR}")
+message(STATUS "LLVM_VERSION_MINOR          = ${LLVM_VERSION_MINOR}")
+message(STATUS "LLVM_VERSION_PATCH          = ${LLVM_VERSION_PATCH}")
+message(STATUS "LLVM_VERSION_SUFFIX         = ${LLVM_VERSION_SUFFIX}")
+message(STATUS "CMAKE_BUILD_TYPE            = ${CMAKE_BUILD_TYPE}")
+message(STATUS "LLVM_USE_CRT_DEBUG          = ${LLVM_USE_CRT_DEBUG}")
+message(STATUS "LLVM_USE_CRT_MINSIZEREL     = ${LLVM_USE_CRT_MINSIZEREL}")
+message(STATUS "LLVM_USE_CRT_RELEASE        = ${LLVM_USE_CRT_RELEASE}")
+message(STATUS "LLVM_USE_CRT_RELWITHDEBINFO = ${LLVM_USE_CRT_RELWITHDEBINFO}")
+message(STATUS "LLVM_CMAKE_DIR              = ${LLVM_CMAKE_DIR}")
+message(STATUS "LLVM_BINARY_DIR             = ${LLVM_BINARY_DIR}")
+message(STATUS "LLVM_TOOLS_BINARY_DIR       = ${LLVM_TOOLS_BINARY_DIR}")
+message(STATUS "LLVM_TOOLS_INSTALL_DIR      = ${LLVM_TOOLS_INSTALL_DIR}")
+message(STATUS "LLVM_CONFIGURATION_TYPES    = ${LLVM_CONFIGURATION_TYPES}")
+message(STATUS "LLVM_ENABLE_SHARED_LIBS     = ${LLVM_ENABLE_SHARED_LIBS}")
+message(STATUS "LLVM_DEFINITIONS            = ${LLVM_DEFINITIONS}")
+message(STATUS "LLVM_AVAILABLE_LIBS         = ${LLVM_AVAILABLE_LIBS}")
+

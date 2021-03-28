@@ -4,56 +4,51 @@ This is an example helping you build your cross-platform clangtool utility with 
 
 ——————————————————————————————————————————————————
 
-## ● Build LLVM
+## ● Prepare vcpkg
 
-``` bash
-mkdir llvm-project.git-8.0.0
-cd llvm-project.git-8.0.0
-git clone https://github.com/llvm/llvm-project.git .
-git checkout llvmorg-8.0.0
-mkdir -p build/debug
-cd build/debug
+- https://docs.microsoft.com/en-us/cpp/build/install-vcpkg?view=msvc-160&tabs=linux
+- https://docs.microsoft.com/en-us/cpp/build/install-vcpkg?view=msvc-160&tabs=macos
+- https://docs.microsoft.com/en-us/cpp/build/install-vcpkg?view=msvc-160&tabs=windows
 
-#####################################################################################
-# Config
-#####################################################################################
-export BUILD_TYPE=Debug
-export TARGET_CPUS="X86"
-export ENABLE_PROJECTS="clang;clang-tools-extra;llvm"
-export INSTALL_DIR=~/petzone/llvm/llvm-prebuilt-install/llvmorg-8.0.0-gcc-debug
-export 
-time cmake -G "Ninja"                             \
-      -DLLVM_ENABLE_ABI_BREAKING_CHECKS=0         \
-      -DLLVM_USE_LINKER=lld                       \
-      -DLLVM_TARGETS_TO_BUILD=$TARGET_CPUS        \
-      -DLLVM_ENABLE_PROJECTS=$ENABLE_PROJECTS     \
-      -DCMAKE_BUILD_TYPE=$BUILD_TYPE              \
-      -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR         \
-      ../../llvm
-
-#####################################################################################
-# Make
-#####################################################################################
-time cmake --build .
-
-#####################################################################################
-# Install
-#####################################################################################
-time cmake -P cmake_install.cmake
+Take Windows for example
+``` powershell
+mkdir vcpkg
+cd vcpkg
+git clone https://github.com/microsoft/vcpkg .
+bootstrap-vcpkg.bat
 ```
 
-## ● Build this project
+## ● Prepare LLVM (Install & Build)
+This step takes time. Depends on your performance of CPU.
 
-``` bash
+``` powershell
+vcpkg.exe install llvm:x64-windows
+```
+
+## ● Build HelloClangTool
+``` powershell
 mkdir hello-clangtool.git
 cd hello-clangtools.git
 git clone https://github.com./dougpuob/hello-clangtool.git  .
 mkdir build
-cd build
-cmake .. -DLLVM_INSTALL_DIR=~/petzone/llvm/llvm-prebuilt-install/llvmorg-8.0.0-gcc-debug/
-cmake --build .
-```
+cd build 
 
+# Debug build on Windows
+cmake ..                                                                `
+    -DCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake"  `
+    -DLLVM_CONFIGURATION_TYPES=Debug                                    `
+    -DLLVM_BUILD_TYPE=Debug
+    
+cmake --build . --config Debug
+
+# Release build on Windows
+cmake ..                                                                `
+    -DCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake"  `
+    -DLLVM_CONFIGURATION_TYPES=Release                                  `
+    -DLLVM_BUILD_TYPE=Release
+    
+cmake --build . --config Release
+```
 
 **main.cpp**
 ``` c++
