@@ -20,4 +20,4 @@ steps:
       Start-Process "Miniconda3-latest-Windows-x86_64.exe" "/S /D=C:\Miniconda3" -Wait
     displayName: 'Install miniconda'
   
-  - script: ls -Recurse C:\Miniconda3
+  - powershell: ls -Recurse C:\Miniconda3
