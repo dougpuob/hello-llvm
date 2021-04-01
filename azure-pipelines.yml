@@ -13,7 +13,7 @@ jobs:
   - job: BuildOnWindows
 
     pool:
-      vmImage: "windows-2017"
+      vmImage: "vs2017-win2016"
 
     steps:
       - script: echo Hello, world!
