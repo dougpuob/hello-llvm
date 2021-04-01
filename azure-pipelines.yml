@@ -36,7 +36,7 @@ jobs:
       - task: CMake@1
         inputs:
           workingDirectory: 'build-with-prebuilt'
-          cmakeArgs: '-G"Ninja" -B"build" -DCMAKE_BUILD_TYPE=Release .'
+          cmakeArgs: '-G"Visual Studio 15 2017" -A x64 -B"build" -DCMAKE_BUILD_TYPE=Release .'
           
       - task: CMake@1
         inputs:
