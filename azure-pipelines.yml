@@ -36,10 +36,10 @@ jobs:
       - task: CMake@1
         inputs:
           workingDirectory: 'build-with-prebuilt'
-          cmakeArgs: '-G"Ninja" -B"build-with-prebuilt/build" -DCMAKE_BUILD_TYPE=Release build-with-prebuilt'
+          cmakeArgs: '-G"Ninja" -B"build" -DCMAKE_BUILD_TYPE=Release .'
           
       - task: CMake@1
         inputs:
           workingDirectory: 'build-with-prebuilt'
-          cmakeArgs: '--build build-with-prebuilt/build'
+          cmakeArgs: '--build build'
            
