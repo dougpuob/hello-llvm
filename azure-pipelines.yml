@@ -28,10 +28,10 @@ jobs:
           command: 'download'
           downloadDirectory: '$(System.DefaultWorkingDirectory)'
           feedsToUse: 'internal'
-          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/1ff061a9-e8ce-4c9d-9070-c175f2bd0abf'
-          vstsFeedPackage: '8bc2d250-3dc3-4c03-a433-e799e88038aa'
+          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/dd1deefb-6f13-454e-93d8-29fba07d94ad'
+          vstsFeedPackage: 'f89a5b51-562b-47cb-9f3a-f4d1a127a147'
           vstsPackageVersion: '0.0.1'
-          verbosity: 'Information'          
+          verbosity: 'Information'
 
       - task: CMake@1
         inputs:
