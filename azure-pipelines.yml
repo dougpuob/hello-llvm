@@ -22,24 +22,30 @@ jobs:
       - checkout: self
         displayName: "Checkout git submodules."
         submodules: true
-
-      - task: UniversalPackages@0
+        
+      - task: PowerShell@2
         inputs:
-          command: 'download'
-          downloadDirectory: '$(System.DefaultWorkingDirectory)'
-          feedsToUse: 'internal'
-          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/dd1deefb-6f13-454e-93d8-29fba07d94ad'
-          vstsFeedPackage: 'f89a5b51-562b-47cb-9f3a-f4d1a127a147'
-          vstsPackageVersion: '0.0.1'
-          verbosity: 'Information'
+          targetType: 'inline'
+          script: 'choco search ninja'
+          pwsh: true
 
-      - task: CMake@1
-        inputs:
-          workingDirectory: 'build-with-prebuilt'
-          cmakeArgs: '-G"Visual Studio 15 2017" -A x64 -B"build" -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory) -DCMAKE_BUILD_TYPE=Release .'
+      # - task: UniversalPackages@0
+      #   inputs:
+      #     command: 'download'
+      #     downloadDirectory: '$(System.DefaultWorkingDirectory)'
+      #     feedsToUse: 'internal'
+      #     vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/dd1deefb-6f13-454e-93d8-29fba07d94ad'
+      #     vstsFeedPackage: 'f89a5b51-562b-47cb-9f3a-f4d1a127a147'
+      #     vstsPackageVersion: '0.0.1'
+      #     verbosity: 'Information'
+
+      # - task: CMake@1
+      #   inputs:
+      #     workingDirectory: 'build-with-prebuilt'
+      #     cmakeArgs: '-G"Visual Studio 15 2017" -A x64 -B"build" -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory) -DCMAKE_BUILD_TYPE=Release .'
           
-      - task: CMake@1
-        inputs:
-          workingDirectory: 'build-with-prebuilt/build'
-          cmakeArgs: '--build .'
+      # - task: CMake@1
+      #   inputs:
+      #     workingDirectory: 'build-with-prebuilt/build'
+      #     cmakeArgs: '--build .'
            
