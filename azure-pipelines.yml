@@ -13,7 +13,7 @@ jobs:
   - job: BuildOnWindows
 
     pool:
-      vmImage: "vs2017-win2016"
+      vmImage: "windows-2019"
 
     steps:
       - script: echo Hello, world!
@@ -34,10 +34,17 @@ jobs:
           vstsPackageVersion: '0.0.1'
           verbosity: 'Information'
 
-      - task: CMake@1
-        inputs:
-          cmakeArgs: '-G"Visual Studio 16 2019" -B"build" -A X64 -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel'
+      - script: |
+          mkdir build
+          cd build
+          cmake "build-with-prebuilt" -B"build-with-prebuilt\build" -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel
+          cmake --build "build-with-prebuilt\build" --config Release
+        displayName: 'Build this project'
+
+      #- task: CMake@1
+      #  inputs:
+      #    cmakeArgs: '-G"Visual Studio 16 2019" -B"build" -A X64 -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel'
       
-      - task: CMake@1
-        inputs:
-          cmakeArgs: '--build build --config Release'
+      #- task: CMake@1
+      #  inputs:
+      #    cmakeArgs: '--build build --config Release'
