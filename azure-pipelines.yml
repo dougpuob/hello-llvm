@@ -35,23 +35,23 @@ jobs:
           script: 'ninja --version'
           pwsh: true
 
-      # - task: UniversalPackages@0
-      #   inputs:
-      #     command: 'download'
-      #     downloadDirectory: '$(System.DefaultWorkingDirectory)'
-      #     feedsToUse: 'internal'
-      #     vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/dd1deefb-6f13-454e-93d8-29fba07d94ad'
-      #     vstsFeedPackage: 'f89a5b51-562b-47cb-9f3a-f4d1a127a147'
-      #     vstsPackageVersion: '0.0.1'
-      #     verbosity: 'Information'
+      - task: UniversalPackages@0
+        inputs:
+          command: 'download'
+          downloadDirectory: '$(System.DefaultWorkingDirectory)'
+          feedsToUse: 'internal'
+          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/6d62ceca-2686-4258-b4a2-77904450321b'
+          vstsFeedPackage: '1534adb7-4c50-41d4-b2cd-00fd0c90a9a7'
+          vstsPackageVersion: '0.0.1'
+          verbosity: 'Information'
 
-      # - task: CMake@1
-      #   inputs:
-      #     workingDirectory: 'build-with-prebuilt'
-      #     cmakeArgs: '-G"Visual Studio 15 2017" -A x64 -B"build" -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory) -DCMAKE_BUILD_TYPE=Release .'
+      - task: CMake@1
+        inputs:
+          workingDirectory: 'build-with-prebuilt'
+          cmakeArgs: '-G"Ninja" -B"build -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory) -DCMAKE_BUILD_TYPE=Release'
           
-      # - task: CMake@1
-      #   inputs:
-      #     workingDirectory: 'build-with-prebuilt/build'
-      #     cmakeArgs: '--build .'
+      - task: CMake@1
+        inputs:
+          workingDirectory: 'build-with-prebuilt/build'
+          cmakeArgs: '--build . --config Release'
            
