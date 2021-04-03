@@ -23,6 +23,9 @@ jobs:
         displayName: "Checkout git submodules."
         submodules: true
 
+      - script: |
+          tree "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community"
+
       - task: UniversalPackages@0
         displayName: 'Download LLVM pre-built library'
         inputs:
@@ -34,10 +37,6 @@ jobs:
           vstsPackageVersion: '0.0.1'
           verbosity: 'Information'
           
-      - task: PowerShell@2
-        inputs:
-          targetType: 'inline'
-          script: 'tree "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community"'
 
       - script: |
           mkdir "build-with-prebuilt\build"
