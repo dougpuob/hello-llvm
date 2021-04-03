@@ -22,53 +22,22 @@ jobs:
       - checkout: self
         displayName: "Checkout git submodules."
         submodules: true
-        
-      - task: PowerShell@2
-        displayName: 'Install ninja'
-        inputs:
-          targetType: 'inline'
-          script: 'choco install ninja -YES'
-          pwsh: true
-      
-      - task: PowerShell@2
-        displayName: 'Show ninja version'
-        inputs:
-          targetType: 'inline'
-          script: 'ninja --version'
-          pwsh: true
 
       - task: UniversalPackages@0
         displayName: 'Download LLVM pre-built library'
         inputs:
           command: 'download'
-          downloadDirectory: '$(System.DefaultWorkingDirectory)'
+          downloadDirectory: '$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel'
           feedsToUse: 'internal'
-          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/6d62ceca-2686-4258-b4a2-77904450321b'
-          vstsFeedPackage: '1534adb7-4c50-41d4-b2cd-00fd0c90a9a7'
+          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/071d0cac-732f-4f21-96a0-556b3a80231f'
+          vstsFeedPackage: '74c2877d-d14a-4bfa-aa51-fbc77173ffac'
           vstsPackageVersion: '0.0.1'
           verbosity: 'Information'
 
-      - task: PowerShell@2
-        displayName: 'Dump folder (System.DefaultWorkingDirectory)'
-        inputs:
-          targetType: 'inline'
-          script: 'Get-ChildItem -Recurse $(System.DefaultWorkingDirectory)'
-
-      - task: PowerShell@2
-        displayName: 'Dump folder (C:\\)'
-        inputs:
-          targetType: 'inline'
-          script: 'Get-ChildItem -Recurse C:\\'
-
       - task: CMake@1
-        displayName: 'Config project with CMake'
         inputs:
-          workingDirectory: 'build-with-prebuilt'
-          cmakeArgs: '-G"Ninja" -B"build -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory) -DCMAKE_BUILD_TYPE=Release'
-          
+          cmakeArgs: '-G"Visual Studio 16 2019" -B"build" -A X64 -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel'
+      
       - task: CMake@1
-        displayName: 'Build project with CMake'
         inputs:
-          workingDirectory: 'build-with-prebuilt/build'
-          cmakeArgs: '--build . --config Release'
-           
+          cmakeArgs: '--build build --config Release'
