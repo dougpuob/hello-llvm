@@ -35,10 +35,10 @@ jobs:
           verbosity: 'Information'
 
       - script: |
-          mkdir build
-          cd build
-          cmake "build-with-prebuilt" -B"build-with-prebuilt\build" -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel
-          cmake --build "build-with-prebuilt\build" --config Release
+          mkdir "build-with-prebuilt\build"
+          cd "build-with-prebuilt\build"
+          cmake .. -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel
+          cmake --build . --config Release
         displayName: 'Build this project'
 
       #- task: CMake@1
