@@ -24,18 +24,21 @@ jobs:
         submodules: true
         
       - task: PowerShell@2
+        displayName: 'Install ninja'
         inputs:
           targetType: 'inline'
           script: 'choco install ninja -YES'
           pwsh: true
       
       - task: PowerShell@2
+        displayName: 'Show ninja version'
         inputs:
           targetType: 'inline'
           script: 'ninja --version'
           pwsh: true
 
       - task: UniversalPackages@0
+        displayName: 'Download LLVM pre-built library'
         inputs:
           command: 'download'
           downloadDirectory: '$(System.DefaultWorkingDirectory)'
@@ -45,12 +48,26 @@ jobs:
           vstsPackageVersion: '0.0.1'
           verbosity: 'Information'
 
+      - task: PowerShell@2
+        displayName: 'Dump folder (System.DefaultWorkingDirectory)'
+        inputs:
+          targetType: 'inline'
+          script: 'Get-ChildItem -Recurse $(System.DefaultWorkingDirectory)'
+
+      - task: PowerShell@2
+        displayName: 'Dump folder (C:\\)'
+        inputs:
+          targetType: 'inline'
+          script: 'Get-ChildItem -Recurse C:\\'
+
       - task: CMake@1
+        displayName: 'Config project with CMake'
         inputs:
           workingDirectory: 'build-with-prebuilt'
           cmakeArgs: '-G"Ninja" -B"build -DLLVM_INSTALL_DIR=$(System.DefaultWorkingDirectory) -DCMAKE_BUILD_TYPE=Release'
           
       - task: CMake@1
+        displayName: 'Build project with CMake'
         inputs:
           workingDirectory: 'build-with-prebuilt/build'
           cmakeArgs: '--build . --config Release'
