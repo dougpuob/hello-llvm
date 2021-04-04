@@ -28,10 +28,10 @@ jobs:
       #     targetType: 'inline'
       #     script: 'Get-ChildItem -Recurse c:\ | Select-Object -ExpandProperty fullname'
 
-      - task: PowerShell@2
-        inputs:
-          targetType: 'inline'
-          script: 'Get-ChildItem -Recurse "C:\Program Files (x86)\Microsoft Visual Studio" | Select-Object -ExpandProperty fullname'
+      # - task: PowerShell@2
+      #   inputs:
+      #     targetType: 'inline'
+      #     script: 'Get-ChildItem -Recurse "C:\Program Files (x86)\Microsoft Visual Studio" | Select-Object -ExpandProperty fullname'
       
       - task: UniversalPackages@0
         displayName: 'Download LLVM pre-built library'
@@ -39,8 +39,8 @@ jobs:
           command: 'download'
           downloadDirectory: '$(System.DefaultWorkingDirectory)\llvmorg-11.1.0-vs2019-x64-rel'
           feedsToUse: 'internal'
-          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/071d0cac-732f-4f21-96a0-556b3a80231f'
-          vstsFeedPackage: '74c2877d-d14a-4bfa-aa51-fbc77173ffac'
+          vstsFeed: 'ba320e28-41cf-4d2a-978b-e402725ee2cb/63c926aa-419b-4b46-b5c8-440b0a16e0a0'
+          vstsFeedPackage: '33fc021f-3ef9-4286-8260-d9969af25fac'
           vstsPackageVersion: '0.0.1'
           verbosity: 'Information'
           
