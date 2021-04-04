@@ -35,19 +35,10 @@ endif()
 ###############################################################################
 # LLVM
 ###############################################################################
-set (SEARCH_PATHHS
-    ${LLVM_INSTALL_DIR}
-    ${LLVM_INSTALL_DIR}/lib/cmake
-    ${LLVM_INSTALL_DIR}/lib/cmake/llvm
-    ${LLVM_INSTALL_DIR}/lib/cmake/clang
-    ${LLVM_INSTALL_DIR}/share/clang/cmake/
-    ${LLVM_INSTALL_DIR}/share/llvm/cmake/
-   )
-
-find_package(LLVM REQUIRED CONFIG PATHS ${SEARCH_PATHHS} NO_DEFAULT_PATH)
+find_package(LLVM REQUIRED CONFIG PATHS ${LLVM_INSTALL_DIR} NO_DEFAULT_PATH)
 message(STATUS "Found LLVM  : ${LLVM_INCLUDE_DIRS} ${LLVM_PACKAGE_VERSION}")
 
-find_package(Clang REQUIRED CONFIG PATHS ${SEARCH_PATHHS} NO_DEFAULT_PATH)
+find_package(Clang REQUIRED CONFIG PATHS ${LLVM_INSTALL_DIR} NO_DEFAULT_PATH)
 
 add_definitions(${LLVM_DEFINITIONS})
 include_directories(${LLVM_INCLUDE_DIRS})
@@ -62,7 +53,6 @@ message(STATUS "CLANG_INCLUDE_DIRS = ${CLANG_INCLUDE_DIRS}")
 set (SELECTED_CLANG_LIBS
     clangTooling
     )
-
 
 ###############################################################################
 add_executable(MyClangTool
