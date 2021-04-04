@@ -29,7 +29,7 @@ if(CMAKE_HOST_WIN32)
 elseif(CMAKE_HOST_UNIX)
     set(CMAKE_CXX_FLAGS "-fno-rtti")
 elseif(CMAKE_HOST_APPLE)
-    set(SYSTEM_LIBS)
+    #set(SYSTEM_LIBS)
 endif()
 
 ###############################################################################
